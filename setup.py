@@ -1,8 +1,8 @@
-
-from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
-from skbuild import setup
-
 import re
+
+from skbuild import setup
+from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
+
 
 class genericpy_bdist_wheel(_bdist_wheel):
     def finalize_options(self):
@@ -14,16 +14,17 @@ class genericpy_bdist_wheel(_bdist_wheel):
         python, abi = "py2.py3", "none"
         return python, abi, plat
 
+
 # Read the clang-format version from the "single source of truth"
 def get_version():
     with open("clang-format_version.cmake", "r") as version_file:
         parsed = {}
         for line in version_file:
-            match = re.match("set\((.*) (.*)\)", line)
+            match = re.match(r"set\((.*) (.*)\)", line)
             if len(match.groups()) != 2:
                 raise ValueError("Version File not readable")
             parsed[match.groups()[0]] = match.groups()[1]
-        if parsed['CLANG_FORMAT_WHEEL_VERSION'] == "0":
+        if parsed["CLANG_FORMAT_WHEEL_VERSION"] == "0":
             return f"{parsed['CLANG_FORMAT_VERSION']}"
         else:
             return f"{parsed['CLANG_FORMAT_VERSION']}.{parsed['CLANG_FORMAT_WHEEL_VERSION']}"
@@ -46,7 +47,7 @@ setup(
         "console_scripts": [
             "clang-format=clang_format:clang_format",
             "git-clang-format=clang_format:git_clang_format",
-            "clang-format-diff.py=clang_format:clang_format_diff"
+            "clang-format-diff.py=clang_format:clang_format_diff",
         ]
     },
     description="Clang-Format is an LLVM-based code formatting tool",
@@ -55,7 +56,7 @@ setup(
     url="http://clang.llvm.org/",
     project_urls={
         "Documentation": "https://clang.llvm.org/docs/ClangFormat.html",
-        "Source": "https://github.com/ssciwr/clang-format-wheel"
+        "Source": "https://github.com/ssciwr/clang-format-wheel",
     },
     download_url="https://github.com/llvm/llvm-project/releases",
     classifiers=[
@@ -66,5 +67,5 @@ setup(
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Quality Assurance",
     ],
-    license="Apache 2.0"
+    license="Apache 2.0",
 )

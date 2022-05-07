@@ -9,6 +9,8 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+# Created via pip install -e .
+clang_format/data/
 develop-eggs/
 dist/
 downloads/
@@ -18,6 +20,7 @@ lib/
 lib64/
 parts/
 sdist/
+_skbuild/
 var/
 wheels/
 share/python-wheels/

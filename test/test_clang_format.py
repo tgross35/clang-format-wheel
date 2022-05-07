@@ -1,8 +1,9 @@
 import filecmp
 import os
-import pytest
 import subprocess
 import tempfile
+
+import pytest
 
 
 @pytest.mark.parametrize("testcase", [("helloworld.cc", "helloworld_format.cc")])
